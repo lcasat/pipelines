@@ -20,14 +20,12 @@ pipeline {
 					containsJiraLink = (commit_message ==~ /^.*(?:https:?\/\/)?[\w.-]+\/[\w]+\/[A-Z-]+[\d]+.*$/)
                     print containsJiraLink
 				}
+				if (!containsJiraLink) {
+					error "This pipeline stops here!"
+				}
 			}
 		}
 		stage("UnitTests") {
-			when {
-				expression {
-					!containsJiraLink
-				}
-			}
 			steps {
 				echo 'Unit tests stage..'
 			}
