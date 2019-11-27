@@ -16,7 +16,7 @@ pipeline {
                     print commit_message
                     containsJiraLink = (commit_message ==~ /^.*(?:https:?\/\/)?[\w.-]+\/[\w]+\/[A-Z-]+[\d]+.*$/)
                     print containsJiraLink
-                    GIT_COMMIT_JIRA_ID = containsJiraLink
+                    params.GIT_COMMIT_JIRA_ID = containsJiraLink
                 }
                 echo 'Git Message JIRA Id status 2:' + GIT_COMMIT_JIRA_ID
 			}
