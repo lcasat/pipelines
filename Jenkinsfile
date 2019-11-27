@@ -23,6 +23,11 @@ pipeline {
 			}
 		}
 		stage("UnitTests") {
+			when {
+				expression {
+					containsJiraLink
+				}
+			}
 			steps {
 				echo 'Unit tests stage..'
 			}
