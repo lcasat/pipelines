@@ -7,6 +7,8 @@ pipeline {
 				script {
 					def commit_message = sh(script:"git log --pretty='format:%Creset%s' --no-merges -1", returnStdout: true)
                 	print commit_message
+                	containsJiraLink = (commit_message ==~ /^.*(?:https:?\/\/)?[\w.-]+\/[\w]+\/[A-Z-]+[\d]+.*$/)
+                    print containsJiraLink
 				}
 			}
 		}
