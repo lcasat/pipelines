@@ -18,7 +18,7 @@ pipeline {
 				echo 'Validating lastest commit message...'
 			}
 		}
-		stage("Unit Tests") {
+		stage("UnitTests") {
 			steps {
 				echo 'Unit tests stage..'
 			}
