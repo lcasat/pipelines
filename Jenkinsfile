@@ -1,3 +1,5 @@
+containsJiraLink = false
+
 pipeline {
 	agent any
 	stages {
@@ -15,6 +17,17 @@ pipeline {
 		stage("Validate Git Commit Message") {
 			steps {
 				echo 'Validating lastest commit message...'
+				script {
+                    if (!containsJiraLink) 
+                        currentBuild.result = 'FAILURE'
+                        echo 'Further code will not be executed'
+                    }   
+                }
+			}
+		}
+		Stage("Run Unit Tests") {
+			steps {
+				echo 'Running unit tests..'
 			}
 		}
 	}
