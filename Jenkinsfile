@@ -1,7 +1,11 @@
-containsJiraLink = false
-
 pipeline {
 	agent any
+	parameters {
+		booleanParam (
+            defaultValue: false,
+            description: 'Git Commit Message JIRA Id',
+            name : 'GIT_COMMIT_JIRA_ID')
+	}
 	stages {
 		stage("Fetch") {
 			steps {
@@ -12,17 +16,14 @@ pipeline {
                 	containsJiraLink = (commit_message ==~ /^.*(?:https:?\/\/)?[\w.-]+\/[\w]+\/[A-Z-]+[\d]+.*$/)
                     print containsJiraLink
 				}
+				GIT_COMMIT_JIRA_ID = containsJiraLink
+				echo 'Git Message JIRA Id status:' + GIT_COMMIT_JIRA_ID
+				return GIT_COMMIT_JIRA_ID
 			}
 		}
 		stage("Validate") {
 			steps {
 				echo 'Validating lastest commit message...'
-				script {
-					if (!containsJiraLink) {
-						currentBuild.result = 'FAILURE'
-                        echo 'Further code will not be executed'
-					}
-				}
 			}
 		}
 		stage("Unit Tests") {
