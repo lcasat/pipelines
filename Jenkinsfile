@@ -8,7 +8,7 @@ pipeline {
 			steps {
 				echo 'Getting lastest commit message...'
 				script {
-                    def commit_message = sh(script:"git log --pretty='format:%Creset%s' --no-merges -1", returnStdout: true)
+                    commit_message = sh(script:"git log --pretty='format:%Creset%s' --no-merges -1", returnStdout: true)
                     print commit_message
                 }
 			}
