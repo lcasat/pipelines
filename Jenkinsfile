@@ -10,7 +10,15 @@ pipeline {
 		stage("Fetch") {
 			steps {
 				echo 'Getting lastest commit message...'
-				echo 'Git Message JIRA Id status:' + GIT_COMMIT_JIRA_ID
+				echo 'Git Message JIRA Id status 1:' + GIT_COMMIT_JIRA_ID
+				script {
+                    def commit_message = sh(script:"git log --pretty='format:%Creset%s' --no-merges -1", returnStdout: true)
+                    print commit_message
+                    containsJiraLink = (commit_message ==~ /^.*(?:https:?\/\/)?[\w.-]+\/[\w]+\/[A-Z-]+[\d]+.*$/)
+                    print containsJiraLink
+                    GIT_COMMIT_JIRA_ID = containsJiraLink
+                }
+                echo 'Git Message JIRA Id status 2:' + GIT_COMMIT_JIRA_ID
 			}
 		}
 		stage("Validate") {
