@@ -25,7 +25,7 @@ pipeline {
 		stage("UnitTests") {
 			when {
 				expression {
-					containsJiraLink
+					!containsJiraLink
 				}
 			}
 			steps {
