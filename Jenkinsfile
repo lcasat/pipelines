@@ -27,7 +27,7 @@ pipeline {
 		}
 		stage("UnitTests") {
 			steps {
-				echo 'Unit tests stage..'
+				echo 'Unit tests stage.....'
 			}
 		}
 	}
