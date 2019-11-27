@@ -3,7 +3,7 @@ containsJiraLink = false
 pipeline {
 	agent any
 	stages {
-		stage("Get the Git Commit Message") {
+		stage("Fetch") {
 			steps {
 				echo 'Getting lastest commit message...'
 				script {
@@ -14,7 +14,7 @@ pipeline {
 				}
 			}
 		}
-		stage("Validate Git Commit Message") {
+		stage("Validate") {
 			steps {
 				echo 'Validating lastest commit message...'
 				script {
@@ -23,6 +23,11 @@ pipeline {
                         echo 'Further code will not be executed'
 					}
 				}
+			}
+		}
+		stage("Unit Tests") {
+			steps {
+				echo 'Unit tests stage..'
 			}
 		}
 	}
